@@ -9,11 +9,14 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,6 +30,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.thymeleaf.util.StringUtils;
 
@@ -41,11 +45,19 @@ public class PhotoController {
 	private PhotoRepository photoRepository;
 
 	@GetMapping("/upload")
-	public String input(Model model, HttpServletRequest request, HttpSession session) {
-//		if (session.getAttribute("user") == null) {// 判断是否登录
-//			return "index";
-//		}
-		session.setAttribute("id","aa58bfeb-cc9c-4562-a2c7-b13f8a21c5cf");
+	public String input(Model model, HttpSession session) {
+		session.setAttribute("id", "aa58bfeb-cc9c-4562-a2c7-b13f8a21c5cf");
+		// if (session.getAttribute("user") == null) {// 判断是否登录
+		// return "index";
+		// }
+		model.addAttribute("user", session.getAttribute("user"));
+		return "drive";
+	}
+
+	@PostMapping("/updatedata")
+	@ResponseBody
+	public Map<String, Object> updatedata(HttpServletRequest request, HttpSession session) {
+		Map<String, Object> map = new HashMap<String, Object>();
 		String id = (String) session.getAttribute("id");// 获取id
 		String route = null;
 		String luj = (String) session.getAttribute("route");// 获取路径
@@ -58,10 +70,11 @@ public class PhotoController {
 			route = request.getSession().getServletContext().getRealPath(id);// 如果路径不存在就得到服务器路径
 		}
 		if (url1 != null) {
-			url = "..\\" + id + url1;// 当前路径
+			url = "文件管理" + url1;// 当前路径
 		} else {
-			url = "..\\" + id;// 当前路径
+			url = "文件管理";// 当前路径
 		}
+		session.setAttribute("route", route);
 		File root = new File(route);
 		File[] roots = root.listFiles();
 		if (roots != null) {
@@ -69,26 +82,29 @@ public class PhotoController {
 				DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// 时间格式
 				Calendar date = Calendar.getInstance();
 				date.setTimeInMillis(f.lastModified());// 将文件的时间进行处理
-				String a[] = f.getName().split("-");// 将文件名进行处理
+				String a[] = f.getName().split("--__--__--__--");// 将文件名进行处理
 				String route1 = f.getAbsolutePath();
+
 				List<Photo> list = photoRepository.register(f.getName());
 				String Path = null;
+				String size = size1(f.length());
 				if (a.length == 2) {
 					Photo photo = (Photo) list.get(0);
 					Path = photo.getPath();
-					us.add(new Route(a[1], df.format(date.getTime()), f.length() / 1024f + "KB", Path, f.getName(),
-							route1));// 文件名 修改时间 大小 图片路径 全名 当前路径 添加到数组
+
+					us.add(new Route(a[1], df.format(date.getTime()), size, Path, f.getName(), route1));// 文件名 修改时间 大小
+																										// 图片路径 全名 当前路径
+																										// 添加到数组
 				} else {
-					us.add(new Route(f.getName(), df.format(date.getTime()), f.length() / 1024f + "KB", Path,
-							f.getName(), route1));
+					us.add(new Route(f.getName(), df.format(date.getTime()), size, Path, f.getName(), route1));
 				}
 			}
 		}
-		model.addAttribute("url", url);
-		model.addAttribute("route1", route);
-		model.addAttribute("user", session.getAttribute("user"));
-		model.addAttribute("pu", us);
-		return "drive";
+		map.put("url", url);
+		map.put("pu", us);
+		map.put("route", route);
+		map.put("code", "200");
+		return map;
 	}
 
 	@PostMapping("/upload") // 上传
@@ -125,7 +141,7 @@ public class PhotoController {
 				String time = sdf1.format(date);
 				String now = sdf.format(date);
 				String basename = UUID.randomUUID().toString().substring(0, 8);
-				String newname = now + basename + "-" + name;// 文件名用-隔开
+				String newname = now + basename + "--__--__--__--" + name;// 文件名用-隔开
 				Path filename = path.resolve(newname);
 				String size = file.getSize() / 1024f + "KB";// 大小计算
 				System.out.println("文件大小：" + size);
@@ -152,11 +168,12 @@ public class PhotoController {
 	}
 
 	@PostMapping("/download") // 下载
-	public void fileDownload(String route, String Fullname, HttpServletRequest request, HttpServletResponse response) {
+	public void fileDownload(String route, String Fullname, HttpServletRequest request,
+			HttpServletResponse response, HttpSession session) {
 		String fileName = Fullname;
 		try {
 			fileName = new String(fileName.getBytes("iso-8859-1"), "utf-8");
-			String realname = fileName.substring(fileName.indexOf("-") + 1);
+			String realname = fileName.substring(fileName.indexOf("--__--__--__--") + 1);
 			response.setHeader("content-disposition", "attachment;filename=" + URLEncoder.encode(realname, "UTF-8"));
 			FileInputStream in = new FileInputStream(route);
 			OutputStream out = response.getOutputStream();
@@ -171,8 +188,11 @@ public class PhotoController {
 		}
 	}
 
-	@PostMapping("/xs") // 新建文件夹
-	public String xs(String route, String Fullname, HttpSession session) {
+	@PostMapping("/route") // 进入文件路径
+	@ResponseBody
+	public Map<String, Object> route(String Fullname, HttpSession session) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		String route = (String) session.getAttribute("route");
 		String route1 = route + "\\" + Fullname;
 		String url = null;
 		String url1 = (String) session.getAttribute("url");
@@ -183,11 +203,15 @@ public class PhotoController {
 		}
 		session.setAttribute("url", url);
 		session.setAttribute("route", route1);
-		return "redirect:/upload";
+		map.put("code", "200");
+		return map;
 	}
 
 	@PostMapping("/fh") // 返回上一级
-	public String fh(String route, HttpSession session, HttpServletRequest request) {
+	@ResponseBody
+	public Map<String, Object> fh(HttpSession session, HttpServletRequest request) {
+		String route = (String) session.getAttribute("route");
+		Map<String, Object> map = new HashMap<String, Object>();
 		String parentPath = null;
 		String parentPath1 = null;
 		String id = (String) session.getAttribute("id");
@@ -210,26 +234,85 @@ public class PhotoController {
 				session.setAttribute("url", parentPath2);
 			}
 		}
-		return "redirect:/upload";
+		map.put("code", "200");
+		return map;
 	}
 
-	@PostMapping("/xj") // 新建
-	public String xj(String route, String wjname, HttpSession session) {
-		String route1 = route + "\\" + wjname;
+	@PostMapping("/xj") // 新建文件夹
+	@ResponseBody
+	public Map<String, Object> xj(String wjname, HttpSession session) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		String luj = (String) session.getAttribute("route");
+		String route1 = luj + "\\" + wjname;
 		File file = new File(route1);
-		if (!file.exists() && !file.isDirectory()) {
+		if (!file.exists() && !file.isDirectory()) {// 如果文件不存在则创建
 			file.mkdir();
+			map.put("code", "200");// 成功创建文件夹
 		} else {
+			map.put("code", "412");
 		}
-		return "redirect:/upload";
+		return map;
 	}
 
 	@PostMapping("/fxxz") // 分享下载
 	public void download(String Fullname, String route, String wjname, HttpServletRequest request,
-			HttpServletResponse response) {
+			HttpServletResponse response, HttpSession session) {
 		route = route.substring(3, route.length());
 		route = request.getSession().getServletContext().getRealPath("") + route;
-		fileDownload(route, Fullname, request, response);
+		fileDownload(route, Fullname, request, response, session);
 	}
+	// 计算文件大小
+	public String size1(double siz) {
+		DecimalFormat df = new DecimalFormat("######0.00");
+		String size;
+		String[] p = { "Byte", "KB", "MB", "GB", "TB", "EB" };
+		int i = 0;
+		while (siz > 1024) {
+			siz /= 1024;
+			i++;
+		}
+		size = df.format(siz) + p[i];
+		return size;
+	}
+	//重命名
+	@PostMapping("/rename")
+	public Map<String, Object> renameFile(String oldname, String newname,HttpSession session) {
+		String luj = (String) session.getAttribute("route");
+		Map<String, Object> map = new HashMap<String, Object>();
+		if (!oldname.equals(newname)) {//旧文件跟新文件判断是否相同
+			File oldfile = new File(luj + "\\" + oldname);//旧命名
+			File newfile = new File(luj + "\\" + newname);//新命名
+			if (!oldfile.exists()) {
+				map.put("code", "null");
+				return map;
+			}
+			if (newfile.exists())
+				map.put("code", "repeat");
+			else {
+				oldfile.renameTo(newfile);//文件重命名
+			}
+		} else {
+			map.put("code", "null");
+		}
+		return map;
+	}
+	@PostMapping("/delect")
+	@ResponseBody
+	public  Map<String, Object> delect(String Fullname,HttpSession session){
+		Map<String, Object> map = new HashMap<String, Object>();
+		String route = (String) session.getAttribute("route");
+		
+		
+		
+		
+		
+		
+		map.put("code", "null");
+		return map;
+	}
+	
+	
+	
+	
 
 }

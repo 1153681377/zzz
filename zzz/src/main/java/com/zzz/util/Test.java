@@ -7,5 +7,4 @@ public class Test {
 		 String sr=HttpUtil.sendPost("http://10.1.65.33:81/login", "account=testtest&password=123456");
 	        System.out.println(sr);
 	}
-
 }

@@ -1,6 +1,5 @@
 package com.zzz.repository;
 
-
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -24,39 +23,42 @@ public class PhotoRepository {
 	private EntityManager entityManager;
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
+
 	public Session getSession() {
 		return entityManager.unwrap(Session.class);
 	}
+
 	public void save(Photo photo) {
 		this.getSession().save(photo);
 	}
-	public List<Photo> register(String newname)
-	{
+
+	public List<Photo> register(String newname) {
 		DetachedCriteria dc = DetachedCriteria.forClass(Photo.class);
-		dc.add(Property.forName("title").eq(newname));//按字段来比较
-		Criteria criteria = dc.getExecutableCriteria(getSession());//在线获取seesion
-		List list=criteria.list();
-		if(null != list && list.size()>0)//判断是否有值
+		dc.add(Property.forName("title").eq(newname));// 按字段来比较
+		Criteria criteria = dc.getExecutableCriteria(getSession());// 在线获取seesion
+		List list = criteria.list();
+		if (null != list && list.size() > 0)// 判断是否有值
 		{
 			return list;
-		}else{
+		} else {
 			return null;
 		}
 	}
-	public List<Photo> share(String share)
-	{
-	DetachedCriteria dc = DetachedCriteria.forClass(Photo.class);
-	dc.add(Property.forName("share").eq(share));//按字段来比较
-	Criteria criteria = dc.getExecutableCriteria(getSession());//在线获取seesion
-	List list=criteria.list();
-	if(null != list && list.size()>0)//判断是否有值
-	{
-		return list;
-	}else{
-		return null;
+
+	public List<Photo> share(String share) {
+		DetachedCriteria dc = DetachedCriteria.forClass(Photo.class);
+		dc.add(Property.forName("share").eq(share));// 按字段来比较
+		Criteria criteria = dc.getExecutableCriteria(getSession());// 在线获取seesion
+		List list = criteria.list();
+		if (null != list && list.size() > 0)// 判断是否有值
+		{
+			return list;
+		} else {
+			return null;
+		}
 	}
-	}
-	public void update(String share,String title){
-		jdbcTemplate.update("update Photo set share=? where title=?",new Object[]{share,title});
+
+	public void update(String share, String title) {
+		jdbcTemplate.update("update Photo set share=? where title=?", new Object[] { share, title });
 	}
 }

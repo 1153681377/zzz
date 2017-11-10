@@ -21,7 +21,7 @@
 密码：<input type="password" name="passwd" placeholder="密码"><br/>
 确认密码：<input type="password" name="passwd1" placeholder="确认密码"><br/>
 <p id="Verification"></p>
-<button onclick="test()">登录</button>
+<button onclick="test()">注册</button>
 </div>
 </section>
 <script type="text/javascript">
@@ -41,9 +41,8 @@ function test(){
 		          },
 		          dataType: "String",
 		          success : function(data) {
-		              if (data == "ture") {
-		            	  console.log("succeed");
-		            		window.location.href="index";
+		              if (data == "succeed") {
+		            	window.location.href="index";
 		              }
 		              if(data=="false"){
 		            	 $("#Verification").html("用户名已存在");

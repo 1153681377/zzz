@@ -16,14 +16,16 @@
 <body>
 <section>
 <div class="login">
+<form method="post" name="form1" id="form1" action="/verify">
 账号：<input type="text" name="account" placeholder="用户名"><br/>
 密码：<input type="password" name="passwd" placeholder="密码"><br/>
-<p id="Verification"></p>
-<button onclick="test()">登录</button>
+<p id="Verification" th:text=${p}></p>
+<input type="submit" value="登录" />
+</form>
 <a href="register"><button>注册</button></a>
 </div>
 </section>
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 function test(){
 
 	   var account = $("input[name='account'").val(); 
@@ -31,34 +33,20 @@ function test(){
 	   if(account!=""&&passwd!=""){
 		   $.ajax({
 		          type : "POST",
-		          url : "/login",
+		          url : "/verify",
 		          data : {
 		              "account" :account,
 		              "passwd":passwd
-		          },
-		          dataType: "json",
-		          success : function(data) {
-		              if (data.code == "200") {
-		            	  console.log("succeed");
-		            		window.location.href="task";
-		              }
-		              if(data.code=="412"){
-		            	 $("#Verification").html("用户名或密码不正确！");
-		              }
-		          }, error: function(date){
-		         	 console.log("asdasd");
-		          }   
-		      });
+		          } });
+		     
 	   }else{
 		   $("#Verification").html("用户名或密码不能为空！");
 	   }
-      
- 
 }
 
 
 
-</script>
+</script> -->
 <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
     <script type="text/javascript">
    (function() {

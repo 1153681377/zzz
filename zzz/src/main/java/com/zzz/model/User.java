@@ -1,14 +1,18 @@
 package com.zzz.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
 public class User {
 	@Id
-	private String id;
+	private String user_id;
 	@NotNull
 	@Size(min=2,max=20)
 	private String account;
@@ -16,15 +20,39 @@ public class User {
 	@Size(min=2,max=18)
 	private String passwd;
 	private String name;
-
-	public String getId() {
-		return id;
+	private String path;
+	@OneToMany(mappedBy="user")
+	private Set<Task> task = new HashSet<Task>();
+	
+	@OneToMany(mappedBy="user")
+	private Set<Project> project = new HashSet<Project>();
+	
+	@OneToMany(mappedBy="user")
+	private Set<Projectman> projectman = new HashSet<Projectman>();
+	public String getPath() {
+		return path;
 	}
-
-	public void setId(String id) {
-		this.id = id;
+	public void setPath(String path) {
+		this.path = path;
 	}
-
+	public String getUser_id() {
+		return user_id;
+	}
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
+	}
+	public Set<Task> getTask() {
+		return task;
+	}
+	public void setTask(Set<Task> task) {
+		this.task = task;
+	}
+	public Set<Project> getProject() {
+		return project;
+	}
+	public void setProject(Set<Project> project) {
+		this.project = project;
+	}
 	public String getAccount() {
 		return account;
 	}
@@ -48,4 +76,14 @@ public class User {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	public Set<Projectman> getProjectman() {
+		return projectman;
+	}
+
+	public void setProjectman(Set<Projectman> projectman) {
+		this.projectman = projectman;
+	}
+	
+
 }

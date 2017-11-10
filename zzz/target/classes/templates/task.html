@@ -99,7 +99,7 @@ if($(obj).prop("checked")){
 						</ul>
 					</li>
 					<li>
-						<a><img src="images/preview.jpg"><span>快到碗里来</span></a>
+						<a><img th:src="${path}"><span>快到碗里来</span></a>
 						<ul class="menu">
 							<li>
 								<a>个人中心</a>
@@ -123,6 +123,10 @@ if($(obj).prop("checked")){
 			<div class="main">
 				<div class="main_top">
 					<div class="main_top_left">
+	 				  <form action="icon_save" method="post" enctype="multipart/form-data" >
+                      <input type="file" name="files" value="上传" multiple="multiple" /><br>
+	                  <button>上传 </button>
+                      </form>
 						<a href="javascript:;"><i class="iconfont icon-woderenwu1"></i><span>我的任务</span></a>
 					</div>
 					<div class="main_top_right">
@@ -138,8 +142,8 @@ if($(obj).prop("checked")){
 									<div class="task_item_input"  th:each="p:${pu}">
 										<ul onselectstart="return false;" >
 											<li>
-												<input type="checkbox" name="sex" id="a" th:id="${p.id}" value=""  class="radio" onchange="javascript:post(this)">
-												<label for="a" th:for="${p.id}"><i></i><span class="active" th:text="${p.name} ">安排与新客户会面</span></label>
+												<input type="checkbox" name="sex" id="a" th:id="${p.task_id}" value=""  class="radio" onchange="javascript:post(this)">
+												<label for="a" th:for="${p.task_id}"><i></i><span class="active" th:text="${p.name} ">安排与新客户会面</span></label>
 											</li>
 											
 										</ul>

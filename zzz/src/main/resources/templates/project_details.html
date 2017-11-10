@@ -178,32 +178,13 @@
 							<div class="task_list_main">
 								<div class="task_list_item"><i class="iconfont icon-liebiao"></i><span>今天</span></div>
 								<div class="task_item_wrapper">
-									<div class="task_item_input">
+									<div class="task_item_input" th:each="p:${task}">
 										<ul onselectstart="return false;">
 											<li>
-												<input type="checkbox" name="sex" id="a" value="" class="radio">
-												<label for="a"><i></i><span class="active">安排与新客户会面</span></label>
+										<input type="checkbox" name="sex" id="a" th:id="${p.task_id}" value=""  class="radio" onchange="javascript:post(this)">
+												<label for="a" th:for="${p.task_id}"><i></i><span class="active" th:text="${p.name} ">安排与新客户会面</span></label>
 											</li>
-											<li>
-												<input type="checkbox" name="sex" id="a1" value="" class="radio">
-												<label for="a1"><i></i><span class="active">安排与新客户会面</span></label>
-											</li>
-											<li>
-												<input type="checkbox" name="sex" id="a2" value="" class="radio">
-												<label for="a2"><i></i><span class="active">安排与新客户会面</span></label>
-											</li>
-											<li>
-												<input type="checkbox" name="sex" id="a3" value="" class="radio">
-												<label for="a3"><i></i><span class="active">安排与新客户会面</span></label>
-											</li>
-											<li>
-												<input type="checkbox" name="sex" id="a4" value="" class="radio">
-												<label for="a4"><i></i><span class="active">安排与新客户会面</span></label>
-											</li>
-											<li>
-												<input type="checkbox" name="sex" id="a5" value="" class="radio">
-												<label for="a5"><i></i><span class="active">安排与新客户会面</span></label>
-											</li>
+				
 										</ul>
 									</div>
 								</div>
@@ -212,12 +193,12 @@
 								</div>
 								<div class="task_item_wrapper_left width25">
 										<div class="task_list_item x_title"><span>项目介绍</span></div>
-										<div class="panel_body">
-											<h3>字幕组</h3>
-											<p>居然能在人人上看到我上大学的东德小城市德绍,内心一顿悸动呀。当年(2000年)念书时,当地亚洲人只有几个越南难民和几个浙江青田人,我走在街上人们都和看到异形一</p>
+										<div class="panel_body" th:each="pro:${pro}">
+											<h3 th:text="${pro.pro_name}">字幕组</h3>
+											<p th:text="${pro.content}">居然能在人人上看到我上大学的东德小城市德绍,内心一顿悸动呀。当年(2000年)念书时,当地亚洲人只有几个越南难民和几个浙江青田人,我走在街上人们都和看到异形一</p>
 											<div class="project_title mbottom">
 												<span class="title">项目负责人</span><br />
-												<span><a href="#"><img src="images/preview.jpg"><span>快到碗里来</span></a></span>
+												<span><a href="#"><img src="images/preview.jpg"><span th:text="${pro.user.name}">快到碗里来</span></a></span>
 											</div>
 											<h5 class="mbottom">项目文件</h5>
 											<ul class="project_list mbottom">

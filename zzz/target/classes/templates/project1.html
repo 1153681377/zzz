@@ -1,24 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<meta name="Author" content=" ">
-		<title>项目</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-		<meta content="yes" name="apple-mobile-web-app-capable" />
-		<meta content="telephone=no" name="format-detection" />
-		<link rel="stylesheet" type="text/css" href="css/style.css">
-		<link rel="stylesheet" type="text/css" href="css/task.css">
-		<link rel="stylesheet" type="text/css" href="css/iconfont.css">
-		<link rel="stylesheet" type="text/css" href="css/project.css">
-		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
-		<script type="text/javascript" src="js/style.js"></script>
-		<style type="text/css">
-		</style>
-	</head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="Author" content=" ">
+    <title>任务</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="telephone=no" name="format-detection" />
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/task.css">
+	<link rel="stylesheet" type="text/css" href="css/iconfont.css">
+	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="js/style.js"></script>
+    <style type="text/css">
 
-	<body>
-		<header id="header">
+    </style>
+</head>
+<body>
+	<header id="header">
 			<div id="header_before"></div>
 			<div class="navbar">
 				<div id="navbar_before"></div>
@@ -34,10 +33,10 @@
 				<div class="subnav">
 					<h3>General</h3>
 					<ul class="nav side-menu">
-						<li><i class="iconfont icon-woderenwu1"></i>
+						<li class="active"><i class="iconfont icon-woderenwu1"></i>
 							<a href="task">我的任务</a>
 						</li>
-						<li class="active"><i class="iconfont icon-heimingdan"></i>
+						<li><i class="iconfont icon-heimingdan"></i>
 							<a href="project">项目</a>
 							<ul>
 								<li><a href="project_details">字幕组</a></li>
@@ -54,8 +53,8 @@
 				</div>
 			</div>
 		</header>
-		<section>
-				<aside class="aside">
+<section>
+	<aside class="aside">
 				<div class="aside_left"><i id="aside_left" class="iconfont icon-liebiao" style="font-size: 24px;"></i></div>
 				<ul class="aside_right">
 					<li>
@@ -107,69 +106,62 @@
 					</li>
 				</ul>
 			</aside>
-
-			<div class="main">
-				<div class="main_top">
-					<div class="main_top_left">
-						<a href="javascript:;"><i class="iconfont icon-woderenwu1"></i><span>项目管理</span></a>
-					</div>
-					<div class="main_top_right">
-						<a href="/project1"><span>添加新任务</span></a>
-					</div>
-				</div>
-				<div class="content">
+	<div class="main">
+		<div class="content">
 					<div class="task_list">
 						<div class="boxes">
 							<div class="task_list_main">
-								<div class="task_list_item"><i class="iconfont icon-liebiao"></i><span>项目管理</span></div>
+								<div class="task_list_item"><h1>创建新项目</h1></div>
 								<div class="task_item_wrapper">
-							
-									<table class="table table-striped">
-										<thead>
-											<tr>
-												<td style="width: 11%">项目名</td>
-												<td>项目负责人</td>
-												<td>项目进展</td>
-												<td style="width: 10%">状态</td>
-												<td>编辑</td>
-											</tr>
-										</thead>
-										<tbody>
-											<tr th:each="p:${pu}">
-											
-												<td th:text="${p.pro_name}" th:data-id="${p.pro_id}" >字幕组</td>
-												
-												<td>
-													<form method="get" name="form1" id="form1"  action="/project_details">
-												<input type="text" name="pro_id" th:value="${p.pro_id}">
-												    <input type="submit" value="进入">
-												    </form>
-													<img src="images/preview.jpg" />
-													<span th:text="${p.user.name}">快到碗里来</span>
-												</td>
-												<td>
-													<div class="progress-bar">
-														<div class="progress-bar1"></div>
+									<form method="post" name="form1" id="form1"  action="/pro_save">
+									<div class="task_new">
+										<div class="task_new_name"><input type="text" name="pro_name" placeholder="项目名称" value=""/></div>
+										<div class="task_new_name"><textarea placeholder="简单描述项目，便于其他人理解（选填）" name="content"></textarea></div>
+										<div class="task_new_member">
+											<h3>参与人员：</h3><span>负责人/成员</span>
+											<h3><i class="iconfont icon-addition"></i></h3>
+											<div class="task_new_content">
+												<div class="task_new_content_member">
+													<div class="task_new_content_member1">
+														<img src="images/preview.jpg" />
+														<label>|</label>
+														<img src="images/preview.jpg" />
+														<img src="images/preview.jpg" />
+														<img src="images/preview.jpg" />
+														<img src="images/preview.jpg" />
 													</div>
-													<span>57%完成</span>
-												</td>
-												<td>进行中</td>
-												<td>
-													<a href="#" class="edit btn"><i class="iconfont icon-brush_fill"></i><span>编辑</span></a>
-													<a href="#" class="delect btn"><i class="iconfont icon-huishouzhan"></i><span>删除</span></a>
-												</td>
-											</tr>
-											
-											
-										</tbody>
-									</table>
-									
+												</div>
+												<i class="iconfont icon-fanhui"></i>
+												<i class="iconfont icon-gengduo"></i>
+											</div>
+										</div>
+										<div class="task_new_member"><h3>项目任务：</h3><h3><i class="iconfont icon-addition"></i></h3></div>
+										<div class="task_new_task">
+											<div class="task_new_task_list">
+												<ol>
+												  <li>咖啡</li>
+												  <li>牛奶</li>
+												  <li>茶</li>
+												</ol>
+												<ol>
+												  <li>咖啡</li>
+												  <li>牛奶</li>
+												  <li>茶</li>
+												</ol>
+											</div>
+										</div>
+									<input type="submit" value="创建" />
+							
+									</div>
+									</form>
+								<a href="/task"><button class="cancel">取消</button></a>
 								</div>
 							</div>
 						</div>
-					</div>
 				</div>
-			</div>
-		</section>
-	</body>
+		</div>
+
+	</div>
+</section>
+</body>
 </html>

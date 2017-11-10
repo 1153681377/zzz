@@ -19,10 +19,6 @@ import com.zzz.repository.UserRepository;
 public class VerifyController {
 	@Autowired
 	private UserRepository userRepository;
-	@GetMapping("/")
-	public String index() {
-		return "index";
-	}
 	@PostMapping("/verify")
 	public String verify(Model model,HttpSession session ,@Valid User user,BindingResult bindingResult){
 		if(bindingResult.hasErrors()){
@@ -32,8 +28,9 @@ public class VerifyController {
 		if(StringUtils.equals(result, "success")){
 		List<User> list =userRepository.findbyid(user.getAccount());
 		User user2=(User)list.get(0);
-		session.setAttribute("user",user2.getName());
-		session.setAttribute("id", user2.getId());
+		session.setAttribute("user", user2);
+		session.setAttribute("name",user2.getName());
+		session.setAttribute("user_id", user2.getUser_id());
 		}
 		else if(StringUtils.equals(result, "account_is_error")){
 			model.addAttribute("p","帐号不存在!");		
@@ -43,7 +40,7 @@ public class VerifyController {
 			model.addAttribute("p","帐号密码不匹配!");		
 			return "index";
 		}
-		return "redirect:/upload";
+		return "redirect:/task";
 	}
 	@GetMapping("/register")
 	public String register() {
@@ -57,7 +54,8 @@ public class VerifyController {
 		}
 		String result=userRepository.register(user.getAccount());
 	    if(StringUtils.equals(result, "account_is_error")){
-	    	user.setId(UUID.randomUUID().toString());
+	    	user.setUser_id(UUID.randomUUID().toString());
+	    	user.setPath("../index.png");
 			userRepository.save(user);
 			return "index";
 		}

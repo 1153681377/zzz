@@ -16,17 +16,19 @@
 <body>
 <section>
 <div class="login">
+<form method="post" name="form1" id="form1" action="/register">
 账号：<input type="text" name="account" placeholder="账号"><br/>
 用户名：<input type="text" name="name" placeholder="用户名"><br/>
 密码：<input type="password" name="passwd" placeholder="密码"><br/>
 确认密码：<input type="password" name="passwd1" placeholder="确认密码"><br/>
-<p id="Verification"></p>
-<button onclick="test()">登录</button>
+<p id="Verification" th:text=${p}></p>
+<input type="submit" value="注册" />
+</form>
+<a href="/"><button>返回</button></a>
 </div>
 </section>
 <script type="text/javascript">
-function test(){
-
+/* function test(){
 	   var account = $("input[name='account'").val(); 
 	   var passwd = $("input[name='passwd'").val();  
 	   var name = $("input[name='name'").val();
@@ -38,26 +40,14 @@ function test(){
 		              "account" :account,
 		              "passwd":passwd,
 		              "name":name
-		          },
-		          dataType: "String",
-		          success : function(data) {
-		              if (data == "ture") {
-		            	  console.log("succeed");
-		            		window.location.href="index";
-		              }
-		              if(data=="false"){
-		            	 $("#Verification").html("用户名已存在");
-		              }
-		          }, error: function(date){
-		         	 console.log("asdasd");
-		          }   
+		          }
 		      });
 	   }else{
 		   $("#Verification").html("用户名或密码不能为空！");
 	   }
       
  
-}
+} */
 
 
 

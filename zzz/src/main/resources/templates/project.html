@@ -114,7 +114,7 @@
 						<a href="javascript:;"><i class="iconfont icon-woderenwu1"></i><span>项目管理</span></a>
 					</div>
 					<div class="main_top_right">
-						<a href="javascript:;"><span>添加新任务</span></a>
+						<a href="/project1"><span>添加新任务</span></a>
 					</div>
 				</div>
 				<div class="content">
@@ -123,11 +123,10 @@
 							<div class="task_list_main">
 								<div class="task_list_item"><i class="iconfont icon-liebiao"></i><span>项目管理</span></div>
 								<div class="task_item_wrapper">
-								
+							
 									<table class="table table-striped">
 										<thead>
 											<tr>
-												<td>id</td>
 												<td style="width: 11%">项目名</td>
 												<td>项目负责人</td>
 												<td>项目进展</td>
@@ -136,12 +135,17 @@
 											</tr>
 										</thead>
 										<tbody>
-											<tr>
-												<td>1</td>
-												<td>字幕组</td>
+											<tr th:each="p:${pu}">
+											
+												<td th:text="${p.pro_name}" th:data-id="${p.pro_id}" >字幕组</td>
+												
 												<td>
+													<form method="get" name="form1" id="form1"  action="/project_details">
+												<input type="text" name="pro_id" th:value="${p.pro_id}">
+												    <input type="submit" value="进入">
+												    </form>
 													<img src="images/preview.jpg" />
-													<span>快到碗里来</span>
+													<span th:text="${p.user.name}">快到碗里来</span>
 												</td>
 												<td>
 													<div class="progress-bar">
@@ -155,44 +159,7 @@
 													<a href="#" class="delect btn"><i class="iconfont icon-huishouzhan"></i><span>删除</span></a>
 												</td>
 											</tr>
-											<tr>
-												<td>2</td>
-												<td>字幕组</td>
-												<td>
-													<img src="images/preview.jpg" />
-													<span>快到碗里来</span>
-												</td>
-												<td>
-													<div class="progress-bar">
-														<div class="progress-bar1"></div>
-													</div>
-													<span>57%完成</span>
-												</td>
-												<td>进行中</td>
-												<td>
-													<a href="#" class="edit btn"><i class="iconfont icon-brush_fill"></i><span>编辑</span></a>
-													<a href="#" class="delect btn"><i class="iconfont icon-huishouzhan"></i><span>删除</span></a>
-												</td>
-											</tr>
-											<tr>
-												<td>3</td>
-												<td>字幕组</td>
-												<td>
-													<img src="images/preview.jpg" />
-													<span>快到碗里来</span>
-												</td>
-												<td>
-													<div class="progress-bar">
-														<div class="progress-bar1"></div>
-													</div>
-													<span>57%完成</span>
-												</td>
-												<td>进行中</td>
-												<td>
-													<a href="#" class="edit btn"><i class="iconfont icon-brush_fill"></i><span>编辑</span></a>
-													<a href="#" class="delect btn"><i class="iconfont icon-huishouzhan"></i><span>删除</span></a>
-												</td>
-											</tr>
+											
 											
 										</tbody>
 									</table>

@@ -42,11 +42,7 @@ public class PhotoController {
 
 	@GetMapping("/upload")
 	public String input(Model model, HttpServletRequest request, HttpSession session) {
-//		if (session.getAttribute("user") == null) {// 判断是否登录
-//			return "index";
-//		}
-		session.setAttribute("id","aa58bfeb-cc9c-4562-a2c7-b13f8a21c5cf");
-		String id = (String) session.getAttribute("id");// 获取id
+		String user_id = (String) session.getAttribute("user_id");// 获取id
 		String route = null;
 		String luj = (String) session.getAttribute("route");// 获取路径
 		String url1 = (String) session.getAttribute("url");// 获取url
@@ -55,12 +51,12 @@ public class PhotoController {
 		if (luj != null) {
 			route = luj;
 		} else {
-			route = request.getSession().getServletContext().getRealPath(id);// 如果路径不存在就得到服务器路径
+			route = request.getSession().getServletContext().getRealPath(user_id);// 如果路径不存在就得到服务器路径
 		}
 		if (url1 != null) {
-			url = "..\\" + id + url1;// 当前路径
+			url = "..\\" + user_id + url1;// 当前路径
 		} else {
-			url = "..\\" + id;// 当前路径
+			url = "..\\" + user_id;// 当前路径
 		}
 		File root = new File(route);
 		File[] roots = root.listFiles();
@@ -94,7 +90,7 @@ public class PhotoController {
 	@PostMapping("/upload") // 上传
 	public String upload(HttpServletRequest request, @RequestParam("file") List<MultipartFile> files,
 			HttpSession session) {
-		String id = (String) session.getAttribute("id");
+		String id = (String) session.getAttribute("user_id");
 		String luj = (String) session.getAttribute("route");
 		String url1 = (String) session.getAttribute("url");
 		String url = null;
@@ -133,7 +129,7 @@ public class PhotoController {
 					Files.copy(file.getInputStream(), filename);
 					Photo photo = new Photo();
 					User user = new User();
-					user.setId(id);
+					user.setUser_id(id);
 					photo.setUser(user);
 					photo.setId(UUID.randomUUID().toString());
 					photo.setPath(url + newname);

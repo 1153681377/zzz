@@ -113,10 +113,11 @@
 							<div class="task_list_main">
 								<div class="task_list_item"><h1>创建新项目</h1></div>
 								<div class="task_item_wrapper">
-									<form>
+									<form method="post" name="form1" id="form1"  action="/task_save">
 									<div class="task_new">
-										<div class="task_new_name"><input type="text" placeholder="项目名称" value=""/></div>
-										<div class="task_new_name"><textarea placeholder="简单描述项目，便于其他人理解（选填）" value=""/></textarea></div>
+										<div class="task_new_name"><input type="text" name="name" placeholder="项目名称" value=""/></div>
+										<input type="date" name="by_date" value="2017-11-05"> 
+										<div class="task_new_name"><textarea placeholder="简单描述项目，便于其他人理解（选填）" name="content"></textarea></div>
 										<div class="task_new_member">
 											<h3>参与人员：</h3><span>负责人/成员</span>
 											<h3><i class="iconfont icon-addition"></i></h3>
@@ -150,10 +151,11 @@
 												</ol>
 											</div>
 										</div>
-										<button>创建</button>
-										<button class="cancel">取消</button>
+									<input type="submit" value="创建" />
+							
 									</div>
 									</form>
+								<a href="/task"><button class="cancel">取消</button></a>
 								</div>
 							</div>
 						</div>

@@ -9,10 +9,12 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Property;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import org.thymeleaf.util.StringUtils;
 
+import com.zzz.model.Project;
 import com.zzz.model.User;
 
 @Repository
@@ -28,7 +30,16 @@ public class UserRepository {
 	public void save(User user) {
 		getSession().save(user);
 	}
-	
+	public void update(User user) {
+		getSession().merge(user);
+	}
+	public List<User> select(String id){
+		DetachedCriteria dc = DetachedCriteria.forClass(User.class);
+		Criteria criteria = dc.getExecutableCriteria(getSession());//在线获取seesion
+		criteria.add(Restrictions.eq("user_id", id));
+		List list=criteria.list();
+		return list;
+	}
 	public String auth(String account,String passwd)
 	{
 		DetachedCriteria dc = DetachedCriteria.forClass(User.class);

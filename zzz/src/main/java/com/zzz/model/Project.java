@@ -22,6 +22,13 @@ public class Project {
 	private Date date;
 	private Integer max;
 	private Integer complete;
+	private Integer finish;
+	public Integer getFinish() {
+		return finish;
+	}
+	public void setFinish(Integer finish) {
+		this.finish = finish;
+	}
 	public Integer getMax() {
 		return max;
 	}

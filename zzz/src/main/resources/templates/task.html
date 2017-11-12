@@ -17,17 +17,6 @@
 
 		</style>
 	</head>
-<script type="text/javascript">
-function post(obj){
-if($(obj).prop("checked")){
-	//选中操作
-	alert("asd");
-	}else{
-	//取消选中操作
-	alert("QWQ");
-	}
-}
-</script>
 	<body>
 		</header>
 		<header id="header">
@@ -99,7 +88,7 @@ if($(obj).prop("checked")){
 						</ul>
 					</li>
 					<li>
-						<a><img th:src="${path}"><span>快到碗里来</span></a>
+						<a><img th:src="${path}"><span th:text="${name}">快到碗里来</span></a>
 						<ul class="menu">
 							<li>
 								<a>个人中心</a>
@@ -142,7 +131,7 @@ if($(obj).prop("checked")){
 									<div class="task_item_input"  th:each="p:${pu}">
 										<ul onselectstart="return false;" >
 											<li>
-												<input type="checkbox" name="sex" id="a" th:id="${p.task_id}" value=""  class="radio" onchange="javascript:post(this)">
+												<input type="checkbox" name="sex" th:data-id="${p.task_id}" th:id="${p.task_id}" value=""  class="radio" onchange="javascript:post(this)">
 												<label for="a" th:for="${p.task_id}"><i></i><span class="active" th:text="${p.name} ">安排与新客户会面</span></label>
 											</li>
 											

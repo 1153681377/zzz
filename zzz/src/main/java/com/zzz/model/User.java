@@ -25,6 +25,9 @@ public class User {
 	private Set<Task> task = new HashSet<Task>();
 	
 	@OneToMany(mappedBy="user")
+	private Set<Comment> comment = new HashSet<Comment>();
+	
+	@OneToMany(mappedBy="user")
 	private Set<Project> project = new HashSet<Project>();
 	
 	@OneToMany(mappedBy="user")
@@ -83,6 +86,12 @@ public class User {
 
 	public void setProjectman(Set<Projectman> projectman) {
 		this.projectman = projectman;
+	}
+	public Set<Comment> getComment() {
+		return comment;
+	}
+	public void setComment(Set<Comment> comment) {
+		this.comment = comment;
 	}
 	
 

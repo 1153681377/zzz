@@ -1,6 +1,8 @@
 package com.zzz.model;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -30,6 +33,14 @@ public class Task {
 	@ManyToOne
 	@JoinColumn(name="user_id",unique=false)
 	private User user;
+	@OneToMany(mappedBy="task")
+	private Set<Comment> comment = new HashSet<Comment>();
+	public Set<Comment> getComment() {
+		return comment;
+	}
+	public void setComment(Set<Comment> comment) {
+		this.comment = comment;
+	}
 	public Integer getDelay() {
 		return delay;
 	}

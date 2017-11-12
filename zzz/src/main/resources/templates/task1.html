@@ -86,7 +86,7 @@
 						</ul>
 					</li>
 					<li>
-						<a><img src="images/preview.jpg"><span>快到碗里来</span></a>
+						<a><img th:src="${path}"><span th:text="${name}">快到碗里来</span></a>
 						<ul class="menu">
 							<li>
 								<a>个人中心</a>
@@ -116,7 +116,7 @@
 									<form method="post" name="form1" id="form1"  action="/task_save">
 									<div class="task_new">
 										<div class="task_new_name"><input type="text" name="name" placeholder="项目名称" value=""/></div>
-										<input type="date" name="by_date" value="2017-11-05"> 
+										<input type="date" name="by_date" value="2017-11-15"> 
 										<div class="task_new_name"><textarea placeholder="简单描述项目，便于其他人理解（选填）" name="content"></textarea></div>
 										<div class="task_new_member">
 											<h3>参与人员：</h3><span>负责人/成员</span>

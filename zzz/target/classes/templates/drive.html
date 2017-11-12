@@ -1,32 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-<meta charset="UTF-8">
-<meta name="Author" content=" ">
-<title>项目</title>
-<meta name="viewport"
-	content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<meta content="yes" name="apple-mobile-web-app-capable" />
-<meta content="telephone=no" name="format-detection" />
-<link rel="stylesheet" type="text/css" href="css/style.css">
-<link rel="stylesheet" type="text/css" href="css/task.css">
-<link rel="stylesheet" type="text/css" href="css/iconfont.css">
-<link rel="stylesheet" type="text/css" href="css/project.css">
-
-
-<link rel="shortcut icon" href="image/1.ico" />
-<link rel="stylesheet" href="css/upload.css">
-<script type="text/javascript" src="js/upload.js"></script>
-
+	<head>
+		<meta charset="UTF-8">
+		<meta name="Author" content=" ">
+		<title>任务</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta content="yes" name="apple-mobile-web-app-capable" />
+		<meta content="telephone=no" name="format-detection" />
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<link rel="stylesheet" type="text/css" href="css/task.css">
+		<link rel="stylesheet" type="text/css" href="css/iconfont.css">
 		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 		<script type="text/javascript" src="js/style.js"></script>
-<style type="text/css">
-</style>
-</head>
+		<link rel="stylesheet" type="text/css" href="css/upload.css" />
+		<script type="text/javascript" src="js/upload.js"></script>
+		<style type="text/css">
 
-<body>
-	<header id="header">
+		</style>
+	</head>
+
+	<body>
+		<header id="header">
 			<div id="header_before"></div>
 			<div class="navbar">
 				<div id="navbar_before"></div>
@@ -45,25 +40,29 @@
 						<li><i class="iconfont icon-woderenwu1"></i>
 							<a href="task">我的任务</a>
 						</li>
-						<li ><i class="iconfont icon-heimingdan"></i>
+						<li><i class="iconfont icon-heimingdan"></i>
 							<a href="project">项目</a>
 							<ul>
-								<li><a href="project_details">字幕组</a></li>
-								<li><a href="project_details">字幕组</a></li>
+								<li>
+									<a href="project_details">字幕组</a>
+								</li>
+								<li>
+									<a href="project_details">字幕组</a>
+								</li>
 							</ul>
 						</li>
 						<li><i class="iconfont icon-activity"></i>
 							<a href="#">任务日历</a>
 						</li>
 						<li class="active"><i class="iconfont icon-wangpan"></i>
-							<a href="upload">网盘系统</a>
+							<a href="drive">网盘系统</a>
 						</li>
 					</ul>
 				</div>
 			</div>
 		</header>
-	<section>
-		<aside class="aside">
+		<section>
+			<aside class="aside">
 				<div class="aside_left"><i id="aside_left" class="iconfont icon-liebiao" style="font-size: 24px;"></i></div>
 				<ul class="aside_right">
 					<li>
@@ -95,7 +94,7 @@
 						</ul>
 					</li>
 					<li>
-						<a><img src="images/preview.jpg"><span>快到碗里来</span></a>
+					   <a><img th:src="${path}"><span th:text="${name}">快到碗里来</span></a>
 						<ul class="menu">
 							<li>
 								<a>个人中心</a>
@@ -115,29 +114,30 @@
 					</li>
 				</ul>
 			</aside>
-
-
-
-		<div class="main">
-			<div class="main_top">
-				<div class="main_top_left">
-					<a href="javascript:;"><i class="iconfont icon-wangpan"></i><span>网盘系统</span></a>
+			<div class="main">
+				<div class="main_top">
+					<div class="main_top_left">
+						<a href="javascript:;"><i class="iconfont icon-wangpan"></i><span>网盘系统</span></a>
+					</div>
 				</div>
-				<div class="main_top_right">
-				
-				</div>
-			</div>
-			<div class="content">
-				<div class="task_list">
-					<div class="boxes">
-						<div class="task_list_main">
-							
-							<div class="task_item_wrapper">
+				<div class="content">
+					<div class="task_list">
+						<div></div>
+						<div class="boxes martop0">
+							<div class="task_list_main">
+								<div class="task_list_item drive_list_item1">
+									<ul class="drive_list_item">
+										<li class="active">个人网盘</li>
+										<li>项目网盘</li>
+										<li>公共网盘</li>
+									</ul>
+								</div>
+								<div class="task_item_wrapper">
 									<div id="container_main">
-										<div class="container_top" style="text-align: left;
-    padding: 10px 0 0 50px;">
+										<div class="container_top" style="text-align: left;">
 											<div class="bor">
-												<span> <a href="javascript:;" class="file" style="    background: #2a3f54!important;
+												<span>
+													<a href="javascript:;" class="file" style="background: #2a3f54!important;
     color: #fff;">选择文件
 														<form method="post" enctype="multipart/form-data"
 															name="form1" id="form1" action="/upload">
@@ -153,68 +153,42 @@
 															<input type="hidden" name="wjname" value="" />
 														</form>
 												</a>
-												</span> <span> <a href="javascript:;" class="file">查看分享
-														<form method="post" enctype="multipart/form-data"
-															name="form5" action="/share">
-															<input type="submit" name="submit">
-														</form>
-												</a>
 												</span>
 											</div>
 										</div>
 										<div class="container_bottom">
 											<div class="container_bottom_top">
-
 												<a href="javascript:void(0);" id="fh">返回上一级
-													<form method="post" enctype="multipart/form-data"
-														name="form2" id="form2" action="/fh">
-														<input type="submit" name="submit"> <input
-															type="hidden" name="route" th:value="${route1}" />
+													<form method="post" enctype="multipart/form-data" name="form2" id="form2" action="/fh">
+														<input type="submit" name="submit"> <input type="hidden" name="route" th:value="${route1}" />
 													</form>
 												</a>
 											</div>
-											<div class="list-header">
-												<ul>
-													<li style="width: 60%;"><span>文件名</span></li>
-													<li style="width: 16%;">大小</li>
-													<li style="width: 24%;">修改日期</li>
-												</ul>
-											</div>
+											<div>
 
-											<div class="list-container" th:each="route:${pu}"
-												id="list-container">
-												<div class="file-name">
-													<a href="javascript:;" onclick="path(this)"
-														th:text="${route.name}">jsp网页制作</a>
-													<form method="post" enctype="multipart/form-data"
-														name="form3" id="form3" action="/xs" style="height: 0;">
-														<input type="hidden" name="Fullname"
-															th:value="${route.Fullname}" /> <input type="hidden"
-															name="route" th:value="${route1}" /> <input
-															type="hidden" name="path" th:value="${route.path}" />
-													</form>
-													<a href="javascript:void(0);" class="em" id="xz"
-														style="right: 40px;">分享
-														<form method="post" enctype="multipart/form-data"
-															name="form2" id="form2" action="/share1">
-															<input type="submit" name="submit"> <input
-																type="hidden" name="Fullname"
-																th:value="${route.Fullname}" /> <input type="hidden"
-																name="route" th:value="${route.route}" />
-														</form>
-													</a> <a href="javascript:void(0);" class="em" id="xz">下载
-														<form method="post" enctype="multipart/form-data"
-															name="form2" id="form2" action="/download">
-															<input type="submit" name="submit"> <input
-																type="hidden" name="Fullname"
-																th:value="${route.Fullname}" /> <input type="hidden"
-																name="route" th:value="${route.route}" />
-														</form>
-													</a>
-												</div>
-												<div class="file-size" th:text="${route.Size}">-</div>
-												<div class="file-time" th:text="${route.time}">2015-09-10</div>
 											</div>
+											<div class="container_bottom_body">
+												<table class="list-header">
+													<thead>
+														<tr>
+															<th>
+																<div class="checkbox">
+																	<input type='checkbox' id='checkbox1' name='check'>
+																	<label for='checkbox1'></label>
+																</div>
+															</th>
+															<th class="th_name">名称</th>
+															<th style="width: 15%;">修改日期</th>
+															<th>大小</th>
+															<th style="text-indent: 6px;">编辑</th>
+														</tr>
+													</thead>
+													<tbody id="list-container">
+
+													</tbody>
+												</table>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -222,22 +196,22 @@
 					</div>
 				</div>
 			</div>
-		</div>
-	</section>
-	<div id="display_picture">
-    <div class="frame_main">
-        <div class=""></div>
-        <div class="picture">
-            <img src="" id="display_picture_img">
-        </div>
-        <h2 id="display_picture_h2">jsp网页制作</h2>
-        <div class="picture_close">
-            <button class="circle" onclick="circle()">
-                <span></span>
-            </button>
+		</section>
 
-        </div>
-    </div>
-</div>
-</body>
+		<div id="display_picture">
+			<div class="frame_main">
+				<div class=""></div>
+				<div class="picture">
+					<img src="" id="display_picture_img">
+				</div>
+				<h2 id="display_picture_h2">jsp网页制作</h2>
+				<div class="picture_close">
+					<button class="circle" onclick="circle()">
+			                <span></span>
+			           </button>
+				</div>
+			</div>
+		</div>
+	</body>
+
 </html>

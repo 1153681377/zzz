@@ -87,7 +87,7 @@
 						</ul>
 					</li>
 					<li>
-						<a><img src="images/preview.jpg"><span>快到碗里来</span></a>
+						<a><img th:src="${path}"><span th:text="${name}">快到碗里来</span></a>
 						<ul class="menu">
 							<li>
 								<a>个人中心</a>
@@ -127,6 +127,7 @@
 									<table class="table table-striped">
 										<thead>
 											<tr>
+							
 												<td style="width: 11%">项目名</td>
 												<td>项目负责人</td>
 												<td>项目进展</td>
@@ -155,11 +156,34 @@
 												</td>
 												<td>进行中</td>
 												<td>
-													<a href="#" class="edit btn"><i class="iconfont icon-brush_fill"></i><span>编辑</span></a>
+													<a onclick="javascript:pro_edit(this)" th:data-id="${p.user.user_id}" class="edit btn" ><i class="iconfont icon-brush_fill"></i><span>编辑</span></a>
+													<a onclick="javascript:pro_delete(this)" th:id="${p.pro_id}" th:data-id="${p.user.user_id}" class="delect btn"><i class="iconfont icon-huishouzhan"></i><span>删除</span></a>
+												</td>
+											</tr>
+											<tr th:each="user:${user}">
+											
+												<td th:text="${user.pro_name}" th:data-id="${user.pro_id}" >字幕组</td>
+												
+												<td>
+													<form method="get" name="form1" id="form1"  action="/project_details">
+												<input type="text" name="pro_id" th:value="${user.pro_id}">
+												    <input type="submit" value="进入">
+												    </form>
+													<img src="images/preview.jpg" />
+													<span th:text="${user.user.name}">快到碗里来</span>
+												</td>
+												<td>
+													<div class="progress-bar">
+														<div class="progress-bar1"></div>
+													</div>
+													<span>57%完成</span>
+												</td>
+												<td>进行中</td>
+												<td>
+													<a onclick="javascript:pro_edit(this)" th:data-id="${user.user.user_id}" class="edit btn" ><i class="iconfont icon-brush_fill"></i><span>编辑</span></a>
 													<a href="#" class="delect btn"><i class="iconfont icon-huishouzhan"></i><span>删除</span></a>
 												</td>
 											</tr>
-											
 											
 										</tbody>
 									</table>

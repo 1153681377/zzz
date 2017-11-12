@@ -91,7 +91,7 @@
 						</ul>
 					</li>
 					<li>
-						<a><img src="images/preview.jpg"><span>快到碗里来</span></a>
+							<a><img th:src="${path}"><span th:text="${name}">快到碗里来</span></a>
 						<ul class="menu">
 							<li>
 								<a>个人中心</a>
@@ -176,13 +176,15 @@
 									</div>
 									<div class="boxes">
 							<div class="task_list_main">
-								<div class="task_list_item"><i class="iconfont icon-liebiao"></i><span>今天</span></div>
+								<div class="task_list_item"><i class="iconfont icon-liebiao"></i><span>完成的任务</span></div>
 								<div class="task_item_wrapper">
 									<div class="task_item_input" th:each="p:${task}">
 										<ul onselectstart="return false;">
 											<li>
-										<input type="checkbox" name="sex" id="a" th:id="${p.task_id}" value=""  class="radio" onchange="javascript:post(this)">
-												<label for="a" th:for="${p.task_id}"><i></i><span class="active" th:text="${p.name} ">安排与新客户会面</span></label>
+										<input type="checkbox" name="sex" id="a" th:id="${p[0].task_id}" value=""  class="radio" onchange="javascript:post(this)">
+												<label for="a" th:for="${p[0].task_id}"><i></i><span class="active" th:text="${p[1]}">安排与新客户会面</span>
+												<span class="active" >完成了</span>
+												<span class="active" th:text="${p[0].name} ">安排与新客户会面</span></label>
 											</li>
 				
 										</ul>

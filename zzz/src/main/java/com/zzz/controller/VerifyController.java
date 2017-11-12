@@ -28,6 +28,7 @@ public class VerifyController {
 		if(StringUtils.equals(result, "success")){
 		List<User> list =userRepository.findbyid(user.getAccount());
 		User user2=(User)list.get(0);
+		session.setAttribute("path", user2.getPath());
 		session.setAttribute("user", user2);
 		session.setAttribute("name",user2.getName());
 		session.setAttribute("user_id", user2.getUser_id());
@@ -41,7 +42,7 @@ public class VerifyController {
 			return "index";
 		}
 		return "redirect:/task";
-	}
+	}  
 	@GetMapping("/register")
 	public String register() {
 		return "register";
